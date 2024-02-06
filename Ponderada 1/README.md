@@ -19,25 +19,25 @@ pip install paho-mqtt
 
 O projeto consiste em dois scripts principais:
 
-- `publisher.py`: Simula o dispositivo IoT enviando dados de radiação solar.
-- `subscriber.py`: Recebe e exibe os dados enviados pelo simulador.
+- `MQTT-pub.py`: Simula o dispositivo IoT enviando dados de radiação solar.
+- `MQTT-sub.py`: Recebe e exibe os dados enviados pelo simulador.
 
-### Executando o Publisher
+### Executando o MQTT-Pub
 
 Para simular o envio de dados de radiação solar, execute:
 
 ```bash
-python publisher.py
+python MQTT-pub.py
 ```
 
 Este script irá gerar e enviar uma mensagem MQTT em intervalos regulares (por exemplo, a cada 15 minutos), simulando as leituras do sensor de radiação solar.
 
-### Executando o Subscriber
+### Executando o MQTT-Sub
 
-Para receber e visualizar os dados enviados pelo publisher, execute em outro terminal:
+Para receber e visualizar os dados enviados pelo MQTT-pub, execute em outro terminal:
 
 ```bash
-python subscriber.py
+python MQTT-sub.py
 ```
 
 ## Estrutura da Mensagem
@@ -58,14 +58,14 @@ As mensagens enviadas pelo simulador possuem o seguinte formato JSON:
 
 ## Evidências de Funcionamento
 
-As evidências de funcionamento são apresentadas através de capturas de tela ou logs que mostram o correto envio e recebimento de mensagens entre o publisher e o subscriber. (Incluir evidências conforme disponível).
+As evidências de funcionamento são apresentadas através de capturas de tela ou logs que mostram o correto envio e recebimento de mensagens entre o MQTT-pub e o MQTT-sub. (Incluir evidências conforme disponível).
 
 ## Extensibilidade
 
 O sistema foi projetado com abstrações que permitem a fácil adaptação para simular outros dispositivos IoT além do sensor de radiação solar especificado. Para adicionar um novo tipo de dispositivo, é necessário:
 
 - Implementar uma nova função de geração de dados que reflita as especificações do novo dispositivo.
-- Configurar o `publisher.py` para usar essa nova função de geração de dados.
+- Configurar o `MQTT-pub.py` para usar essa nova função de geração de dados.
 
 Este design facilita a extensão do simulador para abranger uma ampla variedade de dispositivos IoT sem necessidade de refatoração substancial.
 
