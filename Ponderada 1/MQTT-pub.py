@@ -29,6 +29,10 @@ sensores = {
         "topic": "meuTesteIoT/sensor/radiacao_solar",
         "generate_data": lambda: generate_data("radiacao_solar")
     },
+    "temperatura": {
+        "topic": "meuTesteIoT/sensor/temperatura",
+        "generate_data": lambda: generate_data("temperatura")
+    },
     # Adicione mais sensores conforme necessário, correspondendo às colunas do CSV
 }
 
