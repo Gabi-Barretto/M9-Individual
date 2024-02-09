@@ -1,6 +1,7 @@
 import csv
 import time
 import json
+from datetime import datetime
 from paho.mqtt import client as mqtt_client
 
 broker = 'broker.hivemq.com'
@@ -27,13 +28,17 @@ def generate_data(sensor_name):
 sensores = {
     "radiacao_solar": {
         "topic": "meuTesteIoT/sensor/radiacao_solar",
-        "generate_data": lambda: generate_data("radiacao_solar")
+        "generate_data": lambda: generate_data("radiacao_solar"),
+        "unidade": "W/m²",
+        "nome": "Sensor de Radiação Solar"
     },
-    "temperatura": {
+    "temperatura_ambiente": {
         "topic": "meuTesteIoT/sensor/temperatura",
-        "generate_data": lambda: generate_data("temperatura")
+        "generate_data": lambda: generate_data("temperatura"),
+        "unidade": "°C",
+        "nome": "Sensor de Temperatura Ambiente"
     },
-    # Adicione mais sensores conforme necessário, correspondendo às colunas do CSV
+    # Adicione mais sensores conforme necessário
 }
 
 def connect_mqtt():
@@ -51,13 +56,16 @@ def connect_mqtt():
 def publish(client):
     while True:
         for sensor_name, sensor_info in sensores.items():
-            msg = json.dumps({"value": sensor_info["generate_data"]()})
-            result = client.publish(sensor_info["topic"], msg)
-            status = result[0]
-            if status == 0:
-                print(f"Sent `{msg}` to topic `{sensor_info['topic']}`")
-            else:
-                print(f"Failed to send message to topic {sensor_info['topic']}")
+            valor = sensor_info["generate_data"]()
+            mensagem = json.dumps({
+                "sensor": sensor_info["nome"],
+                "valor": valor,
+                "unidade": sensor_info["unidade"],
+                "timestamp": datetime.now().isoformat()
+            })
+            print(f"Sent `{mensagem}` to topic `{sensor_info['topic']}`")
+            result = client.publish(sensor_info["topic"], mensagem)
+            # Tratar o resultado da publicação como antes
             time.sleep(1)  # Ajuste o tempo de espera conforme necessário
 
 def run():

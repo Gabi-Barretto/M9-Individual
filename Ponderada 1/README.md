@@ -46,9 +46,10 @@ As mensagens enviadas pelo simulador possuem o seguinte formato JSON:
 
 ```json
 {
-  "sensor_id": "RXW-LIB-900",
-  "medicao": 1200.5,
-  "unidade": "W/m²"
+  "sensor": "Sensor de Temperatura Ambiente",
+  "valor": 1200.5,
+  "unidade": "W/m²",
+  "timestamp": "datetime.now()"
 }
 ```
 
