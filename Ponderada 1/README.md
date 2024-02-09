@@ -62,10 +62,27 @@ As evidências de funcionamento são apresentadas através de capturas de tela o
 
 ## Extensibilidade
 
-O sistema foi projetado com abstrações que permitem a fácil adaptação para simular outros dispositivos IoT além do sensor de radiação solar especificado. Para adicionar um novo tipo de dispositivo, é necessário:
+O sistema foi projetado com abstrações que permitem a fácil adaptação para simular outros dispositivos IoT além dos sensores de radiação solar e temperatura especificados. 
 
-- Implementar uma nova função de geração de dados que reflita as especificações do novo dispositivo.
-- Configurar o `MQTT-pub.py` para usar essa nova função de geração de dados.
+Para adicionar um novo tipo de dispositivo, é necessário:
+
+- Adicionar um novo sensor ao dicionário "sensores".
+
+```
+sensores = {
+    "radiacao_solar": {
+        "topic": "meuTesteIoT/sensor/radiacao_solar",
+        "generate_data": lambda: generate_data("radiacao_solar")
+    },
+    "temperatura": {
+        "topic": "meuTesteIoT/sensor/temperatura",
+        "generate_data": lambda: generate_data("temperatura")
+    },
+    # Adicione mais sensores conforme necessário, correspondendo às colunas do CSV...
+}
+```
+
+- Atualizar o CSV com o nome e dados devidamente em conformidade com o Script.
 
 Este design facilita a extensão do simulador para abranger uma ampla variedade de dispositivos IoT sem necessidade de refatoração substancial.
 
