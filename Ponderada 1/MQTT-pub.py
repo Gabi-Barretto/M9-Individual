@@ -1,12 +1,36 @@
-import random
+import csv
 import time
 import json
 from paho.mqtt import client as mqtt_client
 
-broker = 'localhost'
-port = 1883
-topic = "iot/sensor/radiacao_solar"
-client_id = f'python-mqtt-{random.randint(0, 1000)}'
+broker = 'broker.hivemq.com'
+port = 8000
+client_id = "clientId-Qro3K1kRhV"
+csv_file_path = "Ponderada 1\data\sensors.csv"
+
+def read_sensor_data_from_csv(csv_path):
+    while True:  # Loop infinito para simular dados contínuos
+        with open(csv_path, mode='r') as csvfile:
+            csvreader = csv.DictReader(csvfile)
+            for row in csvreader:
+                yield row
+        # Opcional: Pode-se adicionar uma pausa ou condição de saída aqui
+
+# Criar um gerador
+sensor_data_generator = read_sensor_data_from_csv(csv_file_path)
+
+def generate_data(sensor_name):
+    row = next(sensor_data_generator)  # Pega a próxima linha de dados do gerador
+    return row[sensor_name]
+
+# Configurações dos sensores utilizando o gerador para dados
+sensores = {
+    "radiacao_solar": {
+        "topic": "meuTesteIoT/sensor/radiacao_solar",
+        "generate_data": lambda: generate_data("radiacao_solar")
+    },
+    # Adicione mais sensores conforme necessário, correspondendo às colunas do CSV
+}
 
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
@@ -22,24 +46,20 @@ def connect_mqtt():
 
 def publish(client):
     while True:
-        time.sleep(900)  # Simula a taxa de transmissão de 15 minutos
-        message = {
-            "sensor_id": "RXW-LIB-900",
-            "medicao": random.uniform(0, 2000),  # Gera um valor aleatório dentro da faixa de medição
-            "unidade": "W/m²"
-        }
-        message_json = json.dumps(message)
-        result = client.publish(topic, message_json)
-        status = result[0]
-        if status == 0:
-            print(f"Send `{message_json}` to topic `{topic}`")
-        else:
-            print(f"Failed to send message to topic {topic}")
+        for sensor_name, sensor_info in sensores.items():
+            msg = json.dumps({"value": sensor_info["generate_data"]()})
+            result = client.publish(sensor_info["topic"], msg)
+            status = result[0]
+            if status == 0:
+                print(f"Sent `{msg}` to topic `{sensor_info['topic']}`")
+            else:
+                print(f"Failed to send message to topic {sensor_info['topic']}")
+            time.sleep(1)  # Ajuste o tempo de espera conforme necessário
 
 def run():
     client = connect_mqtt()
     client.loop_start()
     publish(client)
 
-if __name__ == '__main__':
-    run()
+if __name__ == "__main__":
+   run()
