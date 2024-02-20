@@ -3,11 +3,14 @@ import time
 import json
 from datetime import datetime
 from paho.mqtt import client as mqtt_client
+import ssl
 
-broker = 'broker.hivemq.com'
-port = 8000
-client_id = "clientId-Qro3K1kRhV"
-csv_file_path = "Ponderada 1\data\sensors.csv"
+broker = '9b6c1af8442543edbffca7a1864df2e3.s1.eu.hivemq.cloud'
+port = 8883
+client_id = "clientId-FCFguvwwR1"
+username = "gabibarretto"
+password = "DarthVader01"  # Substitua por sua senha real
+csv_file_path = "Ponderada 1/data/sensors.csv"  # Ajuste o caminho do arquivo conforme seu ambiente
 
 def read_sensor_data_from_csv(csv_path):
     while True:  # Loop infinito para simular dados contínuos
@@ -17,14 +20,12 @@ def read_sensor_data_from_csv(csv_path):
                 yield row
         # Opcional: Pode-se adicionar uma pausa ou condição de saída aqui
 
-# Criar um gerador
 sensor_data_generator = read_sensor_data_from_csv(csv_file_path)
 
 def generate_data(sensor_name):
     row = next(sensor_data_generator)  # Pega a próxima linha de dados do gerador
     return row[sensor_name]
 
-# Configurações dos sensores utilizando o gerador para dados
 sensores = {
     "radiacao_solar": {
         "topic": "meuTesteIoT/sensor/radiacao_solar",
@@ -49,6 +50,8 @@ def connect_mqtt():
             print("Failed to connect, return code %d\n", rc)
 
     client = mqtt_client.Client(client_id)
+    client.username_pw_set(username, password)  # Adicionando autenticação
+    client.tls_set()  # Habilitando TLS/SSL
     client.on_connect = on_connect
     client.connect(broker, port)
     return client
@@ -74,4 +77,4 @@ def run():
     publish(client)
 
 if __name__ == "__main__":
-   run()
+    run()

@@ -2,9 +2,10 @@ import json
 import random
 from paho.mqtt import client as mqtt_client
 
-broker = 'localhost'
-port = 1883
-topic = "iot/sensor/radiacao_solar"
+broker = 'broker.hivemq.com'
+port = 8883
+# Lista de tópicos para subscrição ou uso de wildcard
+topics = [("meuTesteIoT/sensor/radiacao_solar", 0), ("meuTesteIoT/sensor/temperatura", 0)]
 client_id = f'python-mqtt-{random.randint(0, 1000)}'
 
 def connect_mqtt():
@@ -14,7 +15,7 @@ def connect_mqtt():
         else:
             print("Failed to connect, return code %d\n", rc)
 
-    client = mqtt_client.Client(client_id)
+    client = mqtt_client.Client()
     client.on_connect = on_connect
     return client
 
@@ -23,7 +24,7 @@ def subscribe(client: mqtt_client):
         message = json.loads(msg.payload.decode())
         print(f"Received `{message}` from `{msg.topic}` topic")
 
-    client.subscribe(topic)
+    client.subscribe(topics)  # Subscrevendo a múltiplos tópicos
     client.on_message = on_message
 
 def run():
