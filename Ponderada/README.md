@@ -44,7 +44,9 @@ Este script irá gerar e enviar uma mensagem MQTT em intervalos regulares (por e
 
 ```bash
 
-(go run testes.go)
+cd Documents/Git/M9-Individual/Ponderada/src/Teste_em_GO
+
+go run testes.go
 
 ```
 
