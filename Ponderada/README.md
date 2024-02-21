@@ -40,7 +40,7 @@ Este script irá gerar e enviar uma mensagem MQTT em intervalos regulares (por e
 - Instalar Go: Certifique-se de que Go está instalado em sua máquina. Pode ser baixado de golang.org.
 - Instalar MQTT Client: Você precisa instalar a biblioteca MQTT para Go, que pode ser feita executando go get github.com/eclipse/paho.mqtt.golang no terminal.
 - Escrever o Script: Use o código fornecido acima como um ponto de partida. Salve-o em um arquivo com a extensão .go.
-- Executar o Script: Navegue até o [diretório]() onde o arquivo .go está salvo e execute go run <nome_do_arquivo>.go no terminal. 
+- Executar o Script: Navegue até o [diretório](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada/src/Teste_em_GO) onde o arquivo .go está salvo e execute go run <nome_do_arquivo>.go no terminal. 
 
 ```bash
 
