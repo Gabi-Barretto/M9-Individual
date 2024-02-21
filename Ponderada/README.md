@@ -2,6 +2,8 @@
 
 Este projeto desenvolve um simulador de dispositivos IoT focado na simulação de um sensor de radiação solar, especificamente o modelo HoboNet RXW-LIB-900. O simulador é capaz de gerar e enviar mensagens MQTT que simulam as leituras de radiação solar deste dispositivo.
 
+Em [Mídia](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada/M%C3%ADdia) temos o vídeo do funcionamento do publisher e seus testes em GO.
+
 ## Requisitos
 
 - Python 3.x
