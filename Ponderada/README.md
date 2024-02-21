@@ -39,15 +39,31 @@ Este script irá gerar e enviar uma mensagem MQTT em intervalos regulares (por e
 
 - Instalar Go: Certifique-se de que Go está instalado em sua máquina. Pode ser baixado de golang.org.
 - Instalar MQTT Client: Você precisa instalar a biblioteca MQTT para Go, que pode ser feita executando go get github.com/eclipse/paho.mqtt.golang no terminal.
-- Escrever o Script: Use o código fornecido acima como um ponto de partida. Salve-o em um arquivo com a extensão .go.
-- Executar o Script: Navegue até o [diretório](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada/src/Teste_em_GO) onde o arquivo .go está salvo e execute go run <nome_do_arquivo>.go no terminal. 
+- Criar um Módulo Go: Navegue até o diretório onde você deseja criar seu projeto Go.
+- Execute para criar um novo módulo. Isso criará um arquivo go.mod no seu diretório, que é usado para gerenciar suas dependências.
 
 ```bash
+go mod init <nome_do_seu_projeto>  
+```
 
+- Após inicializar seu módulo, você pode adicionar dependências executando o comando abaixo. Isso irá baixar a biblioteca MQTT e atualizar o arquivo go.mod com a versão específica da dependência.
+
+```bash
+go get github.com/eclipse/paho.mqtt.golang@latest. 
+```
+
+- Para construir seu projeto, execute o comando abaixo dentro do diretório do seu projeto. Isso compilará seu código e gerará um executável.
+
+```bash
+go build 
+```
+
+- Executar o Script: Navegue até o [diretório](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada/src/Teste_em_GO) onde o arquivo .go está salvo e execute  o comando abaixo no terminal.
+
+```bash
 cd Documents/Git/M9-Individual/Ponderada/src/Teste_em_GO
 
 go run testes.go
-
 ```
 
 - Testar Contra o Script Python: Execute o script Python e o script Go simultaneamente. O script Go deve receber e imprimir as mensagens publicadas pelo script Python.
@@ -72,7 +88,9 @@ As mensagens enviadas pelo simulador possuem o seguinte formato JSON:
 
 ## Evidências de Funcionamento
 
-As evidências de funcionamento são apresentadas através de capturas de tela ou logs que mostram o correto envio e recebimento de mensagens entre o MQTT-pub e o MQTT-sub. (Incluir evidências conforme disponível).
+As evidências de funcionamento são apresentadas através de capturas de tela ou logs que mostram o correto envio e recebimento de mensagens entre o MQTT-pub e o teste em GO.
+
+Em [Mídia](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada/M%C3%ADdia) temos o vídeo do funcionamento do publisher e seus testes em GO.
 
 ## Extensibilidade
 
