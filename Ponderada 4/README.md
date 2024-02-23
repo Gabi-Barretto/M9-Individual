@@ -4,7 +4,7 @@ Este projeto desenvolve um simulador de dispositivos IoT focado na simulação d
 
 **Agora** o script conta com TLS. Colocar TLS (Transport Layer Security) em um MQTT (Message Queuing Telemetry Transport) Publisher é uma prática recomendada para melhorar a segurança na comunicação entre o cliente (publisher) e o servidor (broker) MQTT. TLS é um protocolo de segurança que fornece comunicação criptografada e autenticação segura na Internet com isso, assegura-se que os dados transmitidos entre o publisher e o broker sejam criptografados, protegendo assim contra interceptações e ataques man-in-the-middle.
 
-Em [Mídia](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada/M%C3%ADdia) temos o vídeo do funcionamento do publisher e seu subscriber mosquitto. Tambem no disponível no [Drive](https://drive.google.com/file/d/1663MNgkfRqDzEjzu2D4ZOunRVjjokaAi/view?usp=sharing).
+- Em [Mídia](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada%204/M%C3%ADdia) temos o vídeo do funcionamento do publisher e seu subscriber mosquitto. Tambem no disponível no [Drive](https://drive.google.com/file/d/1663MNgkfRqDzEjzu2D4ZOunRVjjokaAi/view?usp=sharing).
 
 ## Requisitos
 
