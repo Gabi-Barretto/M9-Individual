@@ -9,7 +9,7 @@ broker = 'mqtt.eclipseprojects.io'
 port = 1883
 username = "gabibarretto"
 password = "DarthVader01"  # Substitua por sua senha real
-csv_file_path = "Ponderada/src/data/sensors.csv"  # Ajuste o caminho do arquivo conforme seu ambiente 
+csv_file_path = "Ponderada 1 e 2/src/data/sensors.csv"  # Ajuste o caminho do arquivo conforme seu ambiente 
 
 def read_sensor_data_from_csv(csv_path):
     while True:  # Loop infinito para simular dados contínuos
