@@ -1,6 +1,6 @@
-# Simulador de Dispositivos IoT com Paho MQTT 2.0
+# Simulador de Dispositivos IoT com Paho MQTT 2.0 e Metabase
 
-Este projeto implementa um simulador de dispositivos IoT, utilizando a versão 2.0 da biblioteca Paho MQTT para simular a publicação e subscrição de mensagens MQTT. O projeto é composto por um publisher MQTT que simula a geração de dados de dispositivos (por exemplo, sensores de temperatura ou radiação solar) e um subscriber MQTT que recebe essas mensagens. Uma API em Flask é usada para inserir as mensagens recebidas em um banco de dados SQLite, demonstrando um fluxo de dados do dispositivo IoT para armazenamento de dados.
+Este projeto implementa um simulador de dispositivos IoT, utilizando a versão 2.0 da biblioteca Paho MQTT para simular a publicação e subscrição de mensagens MQTT. O projeto é composto por um publisher MQTT que simula a geração de dados de dispositivos (por exemplo, sensores de temperatura ou radiação solar) e um subscriber MQTT que recebe essas mensagens. Uma API em Flask é usada para inserir as mensagens recebidas em um banco de dados SQLite, demonstrando um fluxo de dados do dispositivo IoT para armazenamento de dados que serão apresentados e manipulados via Metabase.
 
 - Em [Mídia](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada%205/M%C3%ADdia) temos o vídeo do funcionamento. Tambem no disponível no [Drive - Sem Metabase](https://drive.google.com/file/d/11jyoVjfM5YjOQkk5anlXzUFQKFN7Uqs9/view?usp=sharing) e [Drive - Com Metabase](https://drive.google.com/file/d/114WOHqOrnmqOu8LA4U-UeUGu4RigclsT/view?usp=sharing).
 
@@ -84,6 +84,31 @@ python3 publisher.py
 
 Digite as mensagens conforme solicitado pelo script do publisher. Essas mensagens serão enviadas ao tópico MQTT, recebidas pelo subscriber e então encaminhadas para a API, que as insere no banco de dados.
 
+### Metabase
+
+Para instalar o metabase e iniciar o container docker em localhost para utiliza-lo, faça:
+
+```bash
+docker pull metabase/metabase:latest
+```
+e em seguida,
+
+```bash
+docker run -d -p 3000:3000 \
+    -v /path/to/metabase-data:/metabase.db \
+    --name metabase metabase/metabase
+```
+
+Substitua **/path/to/metabase-data** pelo caminho onde você deseja armazenar os dados. Exemplo:
+
+```bash
+docker run -d -p 3000:3000 \
+    -v /home/gabi/Documents/Git/M9-Individual/Ponderada5/src:/metabase-data \
+    --name metabase metabase/metabase
+```
+
+Neste comando, ajustamos o mapeamento do volume para apontar para o diretório que contém dados.db, por exemplo (/home/gabi/Documents/Git/M9-Individual/Ponderada5/src) e mapeamos isso para /metabase-data dentro do container. Você então precisará ajustar a configuração do banco de dados no Metabase para apontar para o arquivo correto dentro desse diretório mapeado, que seria algo como **/metabase-data/dados.db**.
+
 ## Importância da Paho MQTT 2.0
 
 A escolha da versão 2.0 da biblioteca Paho MQTT é crucial devido a melhorias significativas e novas funcionalidades introduzidas, tais como:
@@ -96,4 +121,4 @@ Utilizar a versão 2.0 garante que o simulador de dispositivos IoT possa aprovei
 
 ## Conclusão
 
-Este projeto demonstra a implementação de um fluxo de dados IoT completo, desde a geração de dados por dispositivos simulados até o armazenamento desses dados em um banco de dados, utilizando o protocolo MQTT. A utilização da versão 2.0 da biblioteca Paho MQTT é fundamental para o sucesso deste projeto, oferecendo recursos avançados e melhorias essenciais.
+Este projeto demonstra a implementação de um fluxo de dados IoT completo, desde a geração de dados por dispositivos simulados até o armazenamento desses dados em um banco de dados disponibilizado no Metabase, utilizando o protocolo MQTT. A utilização da versão 2.0 da biblioteca Paho MQTT é fundamental para o sucesso deste projeto, oferecendo recursos avançados e melhorias essenciais.
