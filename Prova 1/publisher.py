@@ -27,16 +27,12 @@ csv_file_path = "Prova 1/data.csv"  # Ajuste o caminho do arquivo conforme seu a
 
 def generate_alert(value, tipo):
     if tipo == "freezer":
-        if -25 < value < -15:
-            return "Alerta! Temperatura abaixo do limite."
-        elif value < -25:
+        if value < -25:
             return "Alerta! Temperatura abaixo do limite."
         elif value > -15:
             return "Alerta! Temperatura acima do limite."
     elif tipo == "geladeira":
-        if 2 < value < 10:
-            return "Alerta! Temperatura abaixo do limite."
-        elif value < 2:
+        if value < 2:
             return "Alerta! Temperatura abaixo do limite."
         elif value > 10:
             return "Alerta! Temperatura acima do limite."
@@ -104,7 +100,7 @@ def publish(client):
                 "timestamp": datetime.now().isoformat()
             })
             value = float(sensor_info["data"])
-            if (-25 < value < -15 and sensor_info["tipo"] == "freezer") or (2 < value < 10 and sensor_info["tipo"] == "geladeira"):
+            if (-25 < value or value < -15 and sensor_info["tipo"] == "freezer") or (2 < value or value < 10 and sensor_info["tipo"] == "geladeira"):
                 alerta = generate_alert(value, sensor_info["tipo"])
                 print(f" {alerta} Sent `{mensagem}` to topic `{sensor_info['topic']}`")
 
