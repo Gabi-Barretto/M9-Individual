@@ -11,3 +11,7 @@ e na pasta de teste:
 ```
 go run testes.go
 ```
+
+Os testes falharam por falha na internet!!!!! 
+
+![alt text](image.png)
