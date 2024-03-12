@@ -7,7 +7,7 @@ app = Flask(__name__)
 def insert_data():
     data = request.json
     valor = data['valor']
-    conn = sqlite3.connect('Ponderada 5/src/dados.db')
+    conn = sqlite3.connect('/home/gabi/Documents/Git/M9-Individual/Ponderada 5/src/dados.db')
     cursor = conn.cursor()
     cursor.execute("INSERT INTO dados (valor) VALUES (?)", (valor,))
     conn.commit()

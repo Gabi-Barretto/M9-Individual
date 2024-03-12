@@ -2,7 +2,7 @@
 
 Este projeto implementa um simulador de dispositivos IoT, utilizando a versão 2.0 da biblioteca Paho MQTT para simular a publicação e subscrição de mensagens MQTT. O projeto é composto por um publisher MQTT que simula a geração de dados de dispositivos (por exemplo, sensores de temperatura ou radiação solar) e um subscriber MQTT que recebe essas mensagens. Uma API em Flask é usada para inserir as mensagens recebidas em um banco de dados SQLite, demonstrando um fluxo de dados do dispositivo IoT para armazenamento de dados que serão apresentados e manipulados via Metabase.
 
-- Em [Mídia](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada%205/M%C3%ADdia) temos o vídeo do funcionamento. Tambem no disponível no [Drive - Sem Metabase](https://drive.google.com/file/d/11jyoVjfM5YjOQkk5anlXzUFQKFN7Uqs9/view?usp=sharing) e [Drive - Com Metabase](https://drive.google.com/file/d/114WOHqOrnmqOu8LA4U-UeUGu4RigclsT/view?usp=sharing).
+- Em [Mídia](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada%205/M%C3%ADdia) temos o vídeo do funcionamento. Tambem no disponível no [Drive - Sem Metabase](https://drive.google.com/file/d/11jyoVjfM5YjOQkk5anlXzUFQKFN7Uqs9/view?usp=sharing) e [Drive - Com Metabase](https://drive.google.com/file/d/114WOHqOrnmqOu8LA4U-UeUGu4RigclsT/view?usp=sharing) e [Drive com Testes em Go](https://drive.google.com/file/d/1gbGPyPV1MvK-ARz-7OfYixIK4PmqRaqs/view?usp=sharing).
 
 
 ## Requisitos

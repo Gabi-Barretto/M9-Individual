@@ -6,6 +6,8 @@ Este projeto desenvolve um simulador de dispositivos IoT focado na simulação d
 
 - Em [Mídia](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada%204/M%C3%ADdia) temos o vídeo do funcionamento do publisher e seu subscriber mosquitto. Tambem no disponível no [Drive](https://drive.google.com/file/d/1663MNgkfRqDzEjzu2D4ZOunRVjjokaAi/view?usp=sharing).
 
+- Também temos seus [testes em go](https://drive.google.com/file/d/1RkEWG9Vkn9Dw_MGqFHbuCOnynU3RcIc4/view?usp=sharing) em funcionamento.
+
 ## Requisitos
 
 - Python 3.x
