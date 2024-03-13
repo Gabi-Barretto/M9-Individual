@@ -9,11 +9,12 @@ load_dotenv() # Carrega variáveis de ambiente do arquivo .env
 app = Flask(__name__)
 
 # Replace 'your_connection_string' with your actual MongoDB connection string.
-mongo_uri = os.getenv("API_URL")
-client = MongoClient(mongo_uri)
+mongo_uri = os.getenv("MONGO_URL")
+mongo_client = MongoClient(mongo_uri, tls=True, tlsAllowInvalidCertificates=True)
+
 
 # Replace 'your_database' with your actual database name.
-db = client['ponderada_6']
+db = mongo_client['ponderada_6']
 
 # Replace 'your_collection' with your actual collection name.
 collection = db['ponderada_6']

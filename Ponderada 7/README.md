@@ -1,105 +1,85 @@
-# Simulador de Dispositivos IoT com Paho MQTT 2.0 e Metabase
+# Simulador de Dispositivos IoT com MQTT, MongoDB e Metabase
 
-Este projeto implementa um simulador de dispositivos IoT, utilizando a versão 2.0 da biblioteca Paho MQTT para simular a publicação e subscrição de mensagens MQTT. O projeto é composto por um publisher MQTT que simula a geração de dados de dispositivos (por exemplo, sensores de temperatura ou radiação solar) e um subscriber MQTT que recebe essas mensagens. Uma API em Flask é usada para inserir as mensagens recebidas em um banco de dados MongoDB, demonstrando um fluxo de dados do dispositivo IoT para armazenamento de dados que serão apresentados e manipulados via Metabase.
+Este projeto simula o fluxo de dados de dispositivos IoT usando MQTT para comunicação entre dispositivos e um backend, Python com Flask para processar e armazenar esses dados em um MongoDB hospedado no Atlas, e Metabase para visualização e análise dos dados.
 
 - Em [Mídia](https://github.com/Gabi-Barretto/M9-Individual/tree/main/Ponderada%207/M%C3%ADdia) temos o vídeo do funcionamento. Tambem no disponível no [Drive](https://drive.google.com/file/d/1Ko2Yto1zTyR2htdeLDOGYhtZ8V-TL3ZV/view?usp=sharing).
 
-## Requisitos
+## Estrutura e Fluxo da Aplicação
 
-- Python 3.6 ou superior
-- Paho MQTT 2.0
-- Flask
-- pymongo
+1. **Publisher (publisher.py):** Simula dispositivos IoT enviando dados (por exemplo, leituras de sensores) para um tópico MQTT.
+2. **Subscriber (subscriber.py):** Escuta o tópico MQTT para receber dados dos dispositivos e os encaminha para uma API REST.
+3. **API REST (api.py):** Recebe os dados do subscriber e os insere no MongoDB, armazenando-os para análise posterior.
+4. **MongoDB no Atlas:** Armazena os dados recebidos pela API REST, servindo como base de dados para análise.
+5. **Metabase:** Ferramenta de visualização de dados conectada ao MongoDB no Atlas, permitindo a análise e visualização dos dados coletados.
 
-## Instalação
+## Configuração e Instalação
 
-### Bibliotecas Python
+### Requisitos
 
-Instale as dependências necessárias utilizando pip:
+- Python 3.6+
+- MongoDB Atlas
+- Metabase
+- Bibliotecas Python: Paho MQTT, Flask, PyMongo, dotenv.
 
-```bash
-pip install paho-mqtt==2.0.0 flask pymongo
-```
+### Passos de Instalação
 
-### Configuração do Ambiente
+1. **Instalação das Dependências:**
 
-Crie um arquivo `.env` na raiz do projeto para armazenar as configurações sensíveis e específicas do ambiente, como segue:
+   ```bash
+   pip install paho-mqtt==2.0.0 flask pymongo python-dotenv
+   ```
 
-```env
-# Configurações do MQTT Broker
-BROKER_ADDR=<endereco_do_broker>
-PORT=8883
-TOPIC=<topico_mqtt>
-HIVE_USER=<usuario_mqtt>
-HIVE_PSWD=<senha_mqtt>
+2. **Configuração do .env:**
+   
+   Crie um arquivo `.env` com as seguintes variáveis:
+   
+   ```env
+   BROKER_ADDR="endereco_do_broker"
+   PORT=8883
+   TOPIC="topico_mqtt"
+   HIVE_USER="usuario_mqtt"
+   HIVE_PSWD="senha_mqtt"
+   API_URL="sua_url_da_api"
+   MONGO_URL="sua_string_de_conexao_mongodb"
+   ```
 
-# URL da API do mongodb para o subscriber enviar dados
-API_URL=<sua_conexão_mongodb>
-```
+3. **MongoDB Atlas:**
 
-Substitua os placeholders pelas suas informações de configuração.
+   Configure seu cluster no MongoDB Atlas e obtenha a string de conexão para seu banco de dados.
 
-## Estrutura do Projeto
+4. **Metabase:**
 
-- `publisher.py`: Script que simula um dispositivo IoT, publicando mensagens em um tópico MQTT.
-- `subscriber.py`: Script que se inscreve em um tópico MQTT, recebendo mensagens e enviando-as para uma API Flask.
-- `api.py`: API Flask que recebe dados do subscriber via HTTP POST e os insere em um banco de dados Mongodb.
+   ```bash
+   docker pull metabase/metabase:latest
+   docker run -d -p 3000:3000 --name metabase metabase/metabase
+   ```
+
+   Conecte o Metabase ao seu cluster do MongoDB Atlas seguindo as instruções na UI do Metabase.
 
 ## Execução
 
-### Banco de dados
+1. **API Flask:** Execute `api.py` para iniciar a API Flask que insere dados no MongoDB.
+   
+   ```bash
+   python api.py
+   ```
 
-Crie um cluster e banco de dados no MongoDB.
+2. **Subscriber MQTT:** Execute `subscriber.py` para iniciar o subscriber que escuta o tópico MQTT.
+   
+   ```bash
+   python subscriber.py
+   ```
 
-### API Flask
+3. **Publisher MQTT:** Execute `publisher.py` para simular o envio de dados de dispositivos IoT.
+   
+   ```bash
+   python publisher.py
+   ```
 
-Inicie a API primeiro para garantir que o subscriber possa encaminhar as mensagens corretamente:
+## Visualização de Dados com Metabase
 
-```bash
-python3 api.py
-```
-
-### Subscriber MQTT
-
-Em um novo terminal, inicie o subscriber:
-
-```bash
-python3 subscriber.py
-```
-
-### Publisher MQTT
-
-Finalmente, em outro terminal, execute o publisher para começar a enviar mensagens:
-
-```bash
-python3 publisher.py
-```
-
-Digite as mensagens conforme solicitado pelo script do publisher. Essas mensagens serão enviadas ao tópico MQTT, recebidas pelo subscriber e então encaminhadas para a API, que as insere no banco de dados.
-
-### Metabase
-
-Para instalar o metabase e iniciar o container docker em localhost para utiliza-lo, faça:
-
-```bash
-docker pull metabase/metabase:latest
-```
-e em seguida,
-
-```bash
-docker run -d -p 3005:3000 -v ~/metabase:/metabase.db -v ~/juninho:/juninho --name metabase metabase/metabase
-```
-
-## Importância da Paho MQTT 2.0
-
-A escolha da versão 2.0 da biblioteca Paho MQTT é crucial devido a melhorias significativas e novas funcionalidades introduzidas, tais como:
-
-- Suporte aprimorado para o protocolo MQTT 5.0.
-- Melhorias nas funções de callback, permitindo um manuseio mais eficiente das mensagens.
-- Otimizações de desempenho e segurança.
-
-Utilizar a versão 2.0 garante que o simulador de dispositivos IoT possa aproveitar essas melhorias para uma simulação mais eficaz e segura de dispositivos IoT.
+Após a inserção dos dados no MongoDB e conexão do mesmo com o Metabase, use-o para criar dashboards e visualizações dos dados coletados dos dispositivos IoT.
 
 ## Conclusão
 
-Este projeto demonstra a implementação de um fluxo de dados IoT completo, desde a geração de dados por dispositivos simulados até o armazenamento desses dados em um banco de dados não relacional disponibilizado no Metabase, utilizando o protocolo MQTT. A utilização da versão 2.0 da biblioteca Paho MQTT é fundamental para o sucesso deste projeto, oferecendo recursos avançados e melhorias essenciais.
+Este projeto demonstra uma aplicação completa de IoT, desde a coleta de dados por dispositivos simulados até a visualização desses dados, utilizando tecnologias modernas como MQTT, Flask, MongoDB Atlas e Metabase.

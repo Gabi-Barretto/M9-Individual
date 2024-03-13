@@ -8,11 +8,11 @@ load_dotenv() # Carrega variáveis de ambiente do arquivo .env
 
 # Configurações do broker
 broker_address = os.getenv("BROKER_ADDR")
-port = int(os.getenv("PORT", "8883"))
-topic = os.getenv("TOPIC", "my/test/topic")
+port = int(os.getenv("PORT"))
+topic = os.getenv("TOPIC")
 username = os.getenv("HIVE_USER")
 password = os.getenv("HIVE_PSWD")
-api_url = os.getenv("API_URL", "http://localhost:5000/data")
+api_url = os.getenv("API_URL")
 
 def on_connect(client, userdata, flags, rc, properties):
     print(f"CONNACK received with code {rc}")
